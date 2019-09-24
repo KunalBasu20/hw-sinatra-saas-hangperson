@@ -9,11 +9,12 @@ class HangpersonGame
   # end
   
   def initialize(word)
+    # puts("This is the word to be guessed")
+    # puts(word)
     @word = word
     @guesses = ''
     @wrong_guesses = ''
   end
-
   # GETTER and SETTER Methods
 
   def word
@@ -52,7 +53,6 @@ class HangpersonGame
     end
   end
 
-
   # You can test it by running $ bundle exec irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> HangpersonGame.get_random_word
   #  => "cooking"   <-- some random word
@@ -67,7 +67,11 @@ class HangpersonGame
 
 
   def guess(letter)
-    if word.include?(letter.downcase())
+    # puts("This is the individual letter being guessed")
+    # puts(letter)
+    if letter.nil? || letter.empty? || letter.match?(/[^A-Za-z]/)
+      raise ArgumentError.new("Guesses cannot be empty") 
+    elsif word.include?(letter.downcase())
       insert_helper(letter, guesses)
     else
       insert_helper(letter, wrong_guesses)
@@ -86,8 +90,46 @@ class HangpersonGame
   end
 
   def guess_several_letters(string)
-    string.each do |x|
+    string.chars.each do |x|
       guess(x)
     end
   end
+
+
+  def word_with_guesses
+    temp = word
+    display = ""
+    temp.chars.each do |x| 
+      if guesses.include?(x)
+        display << x
+      else 
+        display << '-'
+      end
+    end
+    return display
+  end
+
+
+  def check_win_or_lose
+    bool = true
+    temp = word
+    
+    temp.chars.each do |x|
+      unless guesses.include?(x) and guesses.length == temp.length
+        bool = false
+      end
+    end
+
+    if wrong_guesses.length >= 7
+      return :lose
+
+    elsif bool == true
+      return :win 
+
+    else 
+      return :play
+    end
+  end
+
+
 end
