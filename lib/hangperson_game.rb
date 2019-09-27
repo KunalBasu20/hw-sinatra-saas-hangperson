@@ -120,6 +120,7 @@ class HangpersonGame
       end
     end
 
+    puts(bool)
     if wrong_guesses.length >= 7
       return :lose
 
