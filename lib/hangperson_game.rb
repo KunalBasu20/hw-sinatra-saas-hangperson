@@ -115,7 +115,7 @@ class HangpersonGame
     temp = word
     
     temp.chars.each do |x|
-      unless guesses.include?(x) and guesses.length == temp.length
+      unless guesses.include?(x)
         bool = false
       end
     end
