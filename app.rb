@@ -67,7 +67,7 @@ class HangpersonApp < Sinatra::Base
   end
   
   get '/win' do
-    if URI(request.referer).path == '/show'
+    if @game.check_win_or_lose == :win
       erb :win # You may change/remove this line
     else
       redirect '/show'
@@ -76,7 +76,7 @@ class HangpersonApp < Sinatra::Base
   end
   
   get '/lose' do
-    if URI(request.referer).path == '/show'
+    if @game.check_win_or_lose == :lose
       erb :lose # You may change/remove this line
     else
       redirect '/show'
