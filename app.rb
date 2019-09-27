@@ -67,11 +67,21 @@ class HangpersonApp < Sinatra::Base
   end
   
   get '/win' do
+    if URI(request.referer).path == '/show'
       erb :win # You may change/remove this line
+    else
+      redirect '/show'
+    end
+
   end
   
   get '/lose' do
-    erb :lose # You may change/remove this line
+    if URI(request.referer).path == '/show'
+      erb :lose # You may change/remove this line
+    else
+      redirect '/show'
+    end
+
   end
   
 end
