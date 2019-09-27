@@ -123,7 +123,7 @@ class HangpersonGame
     if wrong_guesses.length >= 7
       return :lose
 
-    elsif bool == true && temp != null
+    elsif bool == true && word.any?
       return :win 
 
     else 
